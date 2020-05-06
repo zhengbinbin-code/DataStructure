@@ -15,18 +15,18 @@ int main()
 	root = CreateTreePI(pstr, istr, n);*/
 
 	//已知中序遍历和后序遍历序列，创建二叉树
-	/*char* istr = "CBEDFAGH";
+	char* istr = "CBEDFAGH";
 	char* lstr = "CEFDBHGA";
 	BinaryTree root = NULL;
 	int n = strlen(istr);
-	root = CreateTreeIL(istr, lstr, n);*/
+	root = CreateTreeIL(istr, lstr, n);
 
 	//已知前序遍历和中序遍历序列，（非递归）创建二叉树
-	char* pstr = "ABCDEFGH";
-	char* istr = "CBEDFAGH";
-	BinaryTree root = NULL;
-	int n = strlen(pstr);
-	//root = NiceCreateTreePI(pstr, istr, n);
+	//char* pstr = "ABCDEFGH";
+	//char* istr = "CBEDFAGH";
+	//BinaryTree root = NULL;
+	//int n = strlen(pstr);
+	////root = NiceCreateTreePI(pstr, istr, n);
 
 	printf("非递归中序遍历结果为：\t");
 	NiceInOrder(root);
@@ -57,8 +57,6 @@ int main()
 	LevelOrder(root);
 	cout << "弓形层次遍历的结果为：" << "\t";
 	LevelOrder2(root);
-
-
 
 
 
