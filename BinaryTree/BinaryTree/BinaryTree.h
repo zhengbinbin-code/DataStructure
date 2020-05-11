@@ -1,6 +1,6 @@
 #pragma once
 
-typedef int BTDataType;
+typedef char BTDataType;
 
 typedef struct BinaryTreeNode
 {
@@ -16,3 +16,23 @@ int BinaryTreeSize(BTNode* root);
 int BinaryTreeLeafSize(BTNode* root);
 //二叉树第k层节点个数
 int BinaryTreeLevelKSize(BTNode* root, int k);
+//构建二叉树
+BTNode* Rebulid(char* a, int* pi);
+//前序遍历
+void PrevOrder(BTNode* root);
+//中序遍历
+void InOrder(BTNode* root);
+//后序遍历
+void PastOrder(BTNode* root);
+//二叉树销毁
+void TreeDestory(BTNode* root);
+//查找一颗二叉树的值为x的节点
+BTNode* BinaryTreeFind(BTNode* root, BTDataType x);
+//层序遍历
+void TreeLevelOrder(BTNode* root);
+
+
+
+
+
+			

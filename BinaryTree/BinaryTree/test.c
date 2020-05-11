@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include"Heap.h"
+#include"BinaryTree.h"
 
 //½µÐò
 void HeapSort(int* a, int n)
@@ -83,6 +84,16 @@ int main()
 	}*/
 
 	//TestTopK();
+
+	char b[100] = "abc##de#g##f###";
+	int i = 0;
+	BTNode* root = Rebulid(b, &i);
+	InOrder(root); 
+	printf("\n");
+	PrevOrder(root);
+	printf("\n");
+	PastOrder(root);
+	printf("\n");
 
 	system("pause");
 	return 0;
