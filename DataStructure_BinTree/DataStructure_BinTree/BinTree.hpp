@@ -404,6 +404,119 @@ void LevelOrder2(struct BtNode* ptr)
 //	return root;
 //}
 
+//输出第K层的节点
+void print_kLevel_item(BtNode* ptr, int k)
+{
+	if (NULL == ptr || k < 0)	return;
+	if (ptr != NULL && k == 0)
+	{
+		cout << ptr->data << " ";
+	}
+	else
+	{
+		print_kLevel_item(ptr->leftchild, k - 1);
+		print_kLevel_item(ptr->rightchild, k - 1);
+	}
+}
+
+int GetDepth(BtNode* ptr)
+{
+	if (ptr == NULL)
+		return 0;
+	int leftDepth = GetDepth(ptr->leftchild);
+	int rightDepth = GetDepth(ptr->rightchild);
+	return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
+}
+
+//判断是否为满二叉树---非递归
+bool Is_Full_BinTree(BtNode* ptr)
+{
+	bool res = true;
+	if (NULL == ptr)	return res;
+	queue<BtNode*> q1,q2;
+	int n = 1;
+	q1.push(ptr);
+	while (!q1.empty() || !q2.empty())
+	{
+		int i = 0;
+		if (q1.size() < n)
+		{
+			res = false;
+			break;
+		}
+		while (i < n)
+		{
+			BtNode* p = q1.front();	q1.pop();
+			if (p->leftchild != NULL)
+			{
+				q2.push(p->leftchild);
+			}
+			if (p->rightchild != NULL)
+			{
+				q2.push(p->rightchild);
+			}
+			++i;
+		}
+		n += n;
+		i = 0;
+		if (q2.size() < n)
+		{
+			res = false;
+			break;
+		}
+		while (i < n)
+		{
+			BtNode* p = q2.front();	q2.pop();
+			if (p->leftchild != NULL)
+			{
+				q1.push(p->leftchild);
+			}
+			if (p->rightchild != NULL)
+			{
+				q1.push(p->rightchild);
+			}
+			++i;
+		}
+		n += n;
+	}
+	return res;
+}
+
+//判断是否为满二叉树---递归
+bool Is_Full_BinTree2(BtNode* ptr)
+{
+	return (ptr == NULL) ||
+		(Is_Full_BinTree2(ptr->leftchild) &&
+		Is_Full_BinTree2(ptr->rightchild) &&
+		GetDepth(ptr->leftchild) == GetDepth(ptr->rightchild));
+}
+
+//判断是否为完全二叉树
+bool Is_Comp_BinTree(BtNode* ptr)
+{
+	bool res = true;
+	if (NULL == ptr)	return res;
+	queue<BtNode*> qu;
+	qu.push(ptr);
+	while (!qu.empty())
+	{
+		ptr = qu.front();	qu.pop();
+		if (NULL == ptr)	break;
+		qu.push(ptr->leftchild);
+		qu.push(ptr->rightchild);
+	}
+	while (!qu.empty())
+	{
+		ptr = qu.front();	qu.pop();
+		if (NULL != ptr)
+		{
+			res = false;
+			break;
+		}
+	}
+	return res;
+}
+
 
 
 

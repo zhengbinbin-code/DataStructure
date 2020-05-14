@@ -21,7 +21,7 @@ int main()
 	int n = strlen(istr);
 	root = CreateTreeIL(istr, lstr, n);
 
-	//已知前序遍历和中序遍历序列，（非递归）创建二叉树
+	//已知前序遍历和中序遍历序列，（非递归）创建二叉树---------有误
 	//char* pstr = "ABCDEFGH";
 	//char* istr = "CBEDFAGH";
 	//BinaryTree root = NULL;
@@ -58,6 +58,13 @@ int main()
 	cout << "弓形层次遍历的结果为：" << "\t";
 	LevelOrder2(root);
 
+	////输出第K层的节点测试模块
+	//int k = 0;
+	//while (cin >> k, k != -1)
+	//{
+	//	print_kLevel_item(root, k);
+	//	cout << endl;
+	//}
 
 
 	system("pause");
