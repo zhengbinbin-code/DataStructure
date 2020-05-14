@@ -2,6 +2,15 @@
 #include"BinaryTree.h"
 #include<stdio.h>
 
+int BinaryTreeDepth(BTNode* root)
+{
+	if (root == NULL)
+		return 0;
+	int leftDepth = BinaryTreeDepth(root->_left);
+	int rightDepth = BinaryTreeDepth(root->_right);
+	return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
+}
+
 int BinaryTreeSize(BTNode* root)
 {
 	if (root == NULL) return 0;
@@ -76,11 +85,12 @@ void TreeDestory(BTNode* root)
 
 BTNode* BinaryTreeFind(BTNode* root, BTDataType x)
 {
+	BTNode* ret = NULL;
 	if (root == NULL)
 		return NULL;
 	if (root->_data == x)
 		return root;
-	BTNode* ret = BinaryTreeFind(root->_left, x);
+	ret = BinaryTreeFind(root->_left, x);
 	if (ret)
 		return ret;
 	ret = BinaryTreeFind(root->_right, x);
@@ -89,10 +99,24 @@ BTNode* BinaryTreeFind(BTNode* root, BTDataType x)
 	return NULL;
 }
 
-void TreeLevelOrder(BTNode* root)
-{
+//void TreeLevelOrder(BTNode* root)
+//{
+//
+//}
 
-}
+//int isFullBinaryTree(BTNode* root)
+//{
+//	int size = BinaryTreeSize(root);
+//	int depth = BinaryTreeDepth(root);
+//	int a = 1;
+//	for (int i = 0; i < size; ++i)
+//	{
+//		a *= 2;
+//	}
+//	if ((a + 1) == size)
+//		return 1;
+//	return 0;
+//}
 
 
 

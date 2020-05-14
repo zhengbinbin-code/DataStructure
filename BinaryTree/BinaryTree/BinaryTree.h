@@ -10,6 +10,8 @@ typedef struct BinaryTreeNode
 	BTDataType _data;
 }BTNode;
 
+//二叉树的高度
+int BinaryTreeDepth(BTNode* root);
 //二叉树节点个数
 int BinaryTreeSize(BTNode* root);
 //二叉树叶子结点个数
@@ -30,6 +32,8 @@ void TreeDestory(BTNode* root);
 BTNode* BinaryTreeFind(BTNode* root, BTDataType x);
 //层序遍历
 void TreeLevelOrder(BTNode* root);
+//判断是否是满二叉树
+int isFullBinaryTree(BTNode* root);
 
 
 
