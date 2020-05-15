@@ -6,6 +6,7 @@
 #include<stack>
 #include<iostream>
 #include<queue>
+#include<assert.h>
 
 using namespace std;
 
@@ -516,6 +517,304 @@ bool Is_Comp_BinTree(BtNode* ptr)
 	}
 	return res;
 }
+
+//优先级队列
+const int MAXSIZE = 100;
+const int INCSIZE = 100;
+
+template<class T>
+class PriQueue
+{
+public:
+	PriQueue() :maxsize(MAXSIZE), cursize(0)
+	{
+		data = new T[maxsize];
+	}
+	PriQueue(T* arr, int n)
+	{
+		maxsize = n > MAXSIZE ? n : MAXSIZE;
+		cursize = n;
+		data = new T[maxsize];
+		/*for (int i = 0; i < n; ++i)
+		{
+			Push(arr[i]);
+		}*/
+		for (int i = 0; i < n; ++i)
+		{
+			data[i] = ar[i];
+		}
+		MakeHeap();
+	}
+	~PriQueue()
+	{
+		delete[]data;
+		data = nullptr;
+		maxsize = cursize = 0;
+	}
+
+	int GetSize() const
+	{
+		return cursize;
+	}
+	bool IsEmpty() const
+	{
+		return GetSize() == 0;
+	}
+	T& Front()
+	{
+		return data[0];
+	}
+	const T& Front() const
+	{
+		return data[0];
+	}
+	void Pop()
+	{
+		data[0] = data[cursize - 1];
+		--cursize;
+		AdjustDown(0, cursize - 1);
+	}
+	void Push(const T& x)
+	{
+		if (cursize >= maxsize)	return;
+		data[cursize] = x;
+		AdjustUp(cursize);
+		++cursize;
+	}
+private:
+	T* data;
+	int maxsize;	
+	int cursize;	//节点个数
+	void AdjustUp(int begin)
+	{
+		int j = begin, i = (j - 1) / 2;
+		T tmp = data[j];
+		while (j > 0)
+		{
+			if (data[i] <= tmp)	break;
+			data[j] = data[i];
+			j = i;
+			i = (j - 1) / 2;
+		}
+		data[j] = tmp;
+	}
+	void AdjustDown(int begin, int end)
+	{
+		int i = begin, j = i * 2 + 1;
+		T tmp = data[i];
+		while (j <= end)
+		{
+			if (j<end && data[j] >data[j + 1])	++j;
+			if (tmp <= data[j])	break;
+			data[i] = data[j];
+			i = j;
+			j = i * 2 + 1;
+		}
+		data[i] = tmp;
+	}
+	void MakeHeap()
+	{
+		int end = cursize - 1;
+		int pos = (end - 1) / 2;
+		while (pos >= 0)
+		{
+			AdjustDown(pos, end);
+			--pos;
+		}
+	}
+};
+
+typedef int KeyType;
+typedef struct BstNode
+{
+	struct BstNode* leftchild;
+	struct BstNode* parent;
+	struct BstNode* rightchild;
+	KeyType key;
+}BstNode;
+
+typedef struct
+{
+	BstNode* head;
+	int cursize;
+}BSTree;
+
+BstNode* BuyNode()
+{
+	BstNode* s = (BstNode*)malloc(sizeof(*s));
+	if (NULL == s)	exit(EXIT_FAILURE);
+	memset(s, 0, sizeof(BstNode));
+	return s;
+}
+
+void FreeNode(BstNode* p)
+{
+	free(p);
+}
+
+void Init_BSTree(BSTree* ptree)
+{
+	assert(ptree != NULL);
+	ptree->head = BuyNode();
+	ptree->cursize = 0;
+}
+
+//非递归查找
+BstNode* FindValue(BSTree* ptree, KeyType kx)
+{
+	if (ptree == NULL)	return NULL;
+	BstNode* p = ptree->head->parent;//root
+	while (p != NULL && p->key != kx)
+	{
+		p = kx < p->key ? p->leftchild : p->rightchild;
+	}
+	return p;
+}
+
+//递归查找
+BstNode* Search(BstNode* ptr, KeyType kx)
+{
+	if (ptr == NULL || ptr->key == kx)	
+		return ptr;
+	else if (ptr->key > kx)	
+		return Search(ptr->leftchild, kx);
+	else	
+		return Search(ptr->rightchild, kx);
+}
+BstNode* SearchValue(BSTree* ptree, KeyType kx)
+{
+	BstNode* p = NULL;
+	if (ptree != NULL)
+	{
+		p = Search(ptree->head->parent, kx);
+	}
+	return p;
+}
+
+BstNode* First(BstNode* ptr)
+{
+	if (ptr != NULL && ptr->leftchild != NULL)
+	{
+		ptr = ptr->leftchild;
+	}
+	return ptr;
+}
+BstNode* Next(BSTree* ptree, BstNode* ptr)
+{
+	if (ptr == NULL)	return NULL;
+	if (ptr->rightchild != NULL)
+	{
+		return First(ptr->rightchild);
+	}
+	else
+	{
+		BstNode* pa = ptr->parent;
+		while (pa != ptree->head && ptr != pa->leftchild)
+		{
+			ptr = pa;
+			pa = ptr->parent;
+		}
+		if (pa == ptree->head)
+		{
+			pa = NULL;
+		}
+		return pa;
+	}
+}
+void NiceInOrder(BSTree* ptree)	//中序遍历(从小到大)---先找第一个,然后找下一个......
+{
+	assert(ptree != NULL);
+	for (BstNode* p = First(ptree->head->parent); p != NULL; p = Next(ptree, p))
+	{
+		cout << p->key << " ";
+	}
+	cout << endl;
+}
+
+BstNode* Last(BstNode* ptr)
+{
+	while (ptr != NULL && ptr->rightchild != NULL)
+	{
+		ptr = ptr->rightchild;
+	}
+	return ptr;
+}
+BstNode* Prev(BSTree* ptree, BstNode* ptr)
+{
+	if (ptr == NULL)	return NULL;
+	if (ptr->leftchild != NULL)
+	{
+		return Last(ptr->leftchild);
+	}
+	else
+	{
+		BstNode* pa = ptr->parent;
+		while (pa != ptree->head && ptr != pa->rightchild)
+		{
+			ptr = pa;
+			pa = ptr->parent;
+		}
+		if (pa == ptree->head)
+		{
+			pa = NULL;
+		}
+		return pa;
+	}
+}
+void ResNiceInOrder(BSTree* ptree)
+{
+	assert(ptree != NULL);
+	for (BstNode* p = Last(ptree->head->parent); p != NULL; p = Prev(ptree, p))
+	{
+		cout << p->key << " ";
+	}
+	cout << endl;
+}
+
+bool Insert(BSTree* ptree, KeyType kx)
+{
+	if (ptree->head->parent == NULL)
+	{
+		BstNode* root = BuyNode();
+		root->key = kx;
+		ptree->head->parent = root;
+		ptree->head->leftchild = root;
+		ptree->head->rightchild = root;
+		root->parent = ptree->head;
+		ptree->cursize += 1;
+		return true;
+	}
+	BstNode* pa = ptree->head;			//head
+	BstNode* p = ptree->head->parent;	//root
+	while (p != NULL && p->key != kx)
+	{
+		pa = p;
+		p = kx < p->key ? p->leftchild : p->rightchild;
+	}
+	if (p != NULL && p->key == kx)	return false;
+	p = BuyNode();
+	p->parent = pa;
+	p->key = kx;
+	if (pa->key < p->key)
+	{
+		pa->rightchild = p;
+		if (p->key > ptree->head->rightchild->key)
+		{
+			ptree->head->rightchild = p;
+		}
+	}
+	else
+	{
+		pa->leftchild = p;
+		if (p->key < ptree->head->leftchild->key)
+		{
+			ptree->head->leftchild = p;
+		}
+	}
+	ptree->cursize += 1;
+	return true;
+}
+
 
 
 

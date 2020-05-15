@@ -15,11 +15,11 @@ int main()
 	root = CreateTreePI(pstr, istr, n);*/
 
 	//已知中序遍历和后序遍历序列，创建二叉树
-	char* istr = "CBEDFAGH";
+	/*char* istr = "CBEDFAGH";
 	char* lstr = "CEFDBHGA";
 	BinaryTree root = NULL;
 	int n = strlen(istr);
-	root = CreateTreeIL(istr, lstr, n);
+	root = CreateTreeIL(istr, lstr, n);*/
 
 	//已知前序遍历和中序遍历序列，（非递归）创建二叉树---------有误
 	//char* pstr = "ABCDEFGH";
@@ -28,15 +28,17 @@ int main()
 	//int n = strlen(pstr);
 	////root = NiceCreateTreePI(pstr, istr, n);
 
-	printf("非递归中序遍历结果为：\t");
+	//非递归遍历测试模块
+	/*printf("非递归中序遍历结果为：\t");
 	NiceInOrder(root);
 	printf("非递归后序遍历结果为：\t");
 	NicePastOrder(root);
 	printf("非递归先序遍历结果为：\t");
 	NicePreOrder(root);
-	cout << endl;
+	cout << endl;*/
 
-	printf("递归先序遍历结果为：\t");
+	//递归遍历测试模块
+	/*printf("递归先序遍历结果为：\t");
 	PreOrder(root);
 	printf("\n");
 	printf("递归中序遍历结果为：\t");
@@ -45,18 +47,19 @@ int main()
 	printf("递归后序遍历结果为：\t");
 	PastOrder(root);
 	printf("\n");
-	cout << endl;
+	cout << endl;*/
 
-	printf("非递归后序遍历2结果为：\t");
+	/*printf("非递归后序遍历2结果为：\t");
 	StkNicePastOrder(root);
 	printf("非递归中序遍历2结果为：\t");
 	StkNiceInOrder(root);
-	cout << endl;
+	cout << endl;*/
 	
-	cout << "层次遍历的结果为：" << "\t";
+	//层次遍历测试模块
+	/*cout << "层次遍历的结果为：" << "\t";
 	LevelOrder(root);
 	cout << "弓形层次遍历的结果为：" << "\t";
-	LevelOrder2(root);
+	LevelOrder2(root);*/
 
 	////输出第K层的节点测试模块
 	//int k = 0;
@@ -65,6 +68,27 @@ int main()
 	//	print_kLevel_item(root, k);
 	//	cout << endl;
 	//}
+
+	//优先级队列测试代码
+	//PriQueue<int> pq;
+	//int x;
+	//while (cin >> x, x != -1)	//输入-1以停止输入
+	//{
+	//	pq.Push(x);
+	//}
+	//while (!pq.IsEmpty())
+	//{
+	//	int x = pq.Front();	pq.Pop();
+	//	cout << x << " ";
+	//}
+	//cout << endl;
+
+	BSTree mytree;
+	Init_BSTree(&mytree);
+	////Insert();
+	//int kx;
+	//cin >> kx;
+	//BstNode* p = SearchValue(&mytree, kx);
 
 
 	system("pause");
