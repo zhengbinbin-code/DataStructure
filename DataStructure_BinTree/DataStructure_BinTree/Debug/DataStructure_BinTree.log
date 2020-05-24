@@ -1,4 +1,4 @@
-﻿生成启动时间为 2020/5/15 22:07:38。
+﻿生成启动时间为 2020/5/16 14:59:30。
      1>项目“E:\code\DataStructure\DataStructure_BinTree\DataStructure_BinTree\DataStructure_BinTree.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt test.cpp
@@ -12,4 +12,4 @@
 
 生成成功。
 
-已用时间 00:00:01.87
+已用时间 00:00:03.23

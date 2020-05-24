@@ -83,12 +83,32 @@ int main()
 	//}
 	//cout << endl;
 
-	BSTree mytree;
-	Init_BSTree(&mytree);
+	//BSTree mytree;
+	//Init_BSTree(&mytree);
 	////Insert();
 	//int kx;
 	//cin >> kx;
 	//BstNode* p = SearchValue(&mytree, kx);
+
+	//BSTÊ÷±éÀú¡¢ÄæÖÃ±éÀú²âÊÔ´úÂë
+	int arr[] = { 53, 17, 78, 9, 45, 65, 87, 23, 81, 94, 88, 100 };
+	int n = sizeof(arr) / sizeof(arr[0]);
+	BSTree mytree;
+	Init_BSTree(&mytree);
+	for (int i = 0; i < n; ++i)
+	{
+		Insert(&mytree,arr[i]);
+	}
+	NiceInOrder(&mytree);
+	ResNiceInOrder(&mytree);
+
+	////BSTÉ¾³ı²âÊÔ´úÂë
+	//int kx;
+	//while (cin >> kx, kx != -1)		//ÊäÈë-1Í£Ö¹
+	//{
+	//	cout << Remove(&mytree, kx) << endl;
+	//	NiceInOrder(&mytree);
+	//}
 
 
 	system("pause");

@@ -693,7 +693,7 @@ BstNode* SearchValue(BSTree* ptree, KeyType kx)
 
 BstNode* First(BstNode* ptr)
 {
-	if (ptr != NULL && ptr->leftchild != NULL)
+	while (ptr != NULL && ptr->leftchild != NULL)
 	{
 		ptr = ptr->leftchild;
 	}
@@ -761,7 +761,7 @@ BstNode* Prev(BSTree* ptree, BstNode* ptr)
 		return pa;
 	}
 }
-void ResNiceInOrder(BSTree* ptree)
+void ResNiceInOrder(BSTree* ptree)	//中序遍历逆置(从大到小)---先找最后一个,再找前一个......
 {
 	assert(ptree != NULL);
 	for (BstNode* p = Last(ptree->head->parent); p != NULL; p = Prev(ptree, p))
@@ -814,6 +814,43 @@ bool Insert(BSTree* ptree, KeyType kx)
 	ptree->cursize += 1;
 	return true;
 }
+
+//删根有错误
+//bool Remove(BSTree* ptree, KeyType kx)
+//{
+//	if (ptree->head->parent == NULL)	return false;
+//	BstNode* p = FindValue(ptree, kx);
+//	if (p == NULL)	return false;
+//	BstNode* pa = p->parent;
+//	//two branch
+//	if (p->leftchild != NULL && p->rightchild != NULL)
+//	{
+//		BstNode* nt = Next(ptree, p);
+//		p->key = nt->key;
+//		p = nt;
+//	}
+//	//leaf、one branch
+//	BstNode* child = p->leftchild != NULL ? p->leftchild : p->rightchild;
+//	if (child != NULL)	child->parent = pa;
+//	if (pa == ptree->head)
+//	{
+//		pa->parent = p;
+//	}
+//	else
+//	{
+//		if (pa->leftchild == p)
+//		{
+//			pa->leftchild = child;
+//		}
+//		else
+//		{
+//			pa->rightchild = child;
+//		}
+//	}
+//	FreeNode(p);
+//	ptree->cursize -= 1;
+//	return true;
+//}
 
 
 
